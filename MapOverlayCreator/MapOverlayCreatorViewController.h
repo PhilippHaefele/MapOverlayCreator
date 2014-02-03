@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface MapOverlayCreatorViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
