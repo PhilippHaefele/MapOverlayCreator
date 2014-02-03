@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5A3A61C9189F9C93005D1303 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A61C7189F9C93005D1303 /* LICENSE */; };
 		5A3A61CA189F9C93005D1303 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A61C8189F9C93005D1303 /* README.md */; };
+		5A3A61CC189FA404005D1303 /* pin123.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A3A61CB189FA404005D1303 /* pin123.png */; };
+		5A3A61CF189FAF8F005D1303 /* Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A61CE189FAF8F005D1303 /* Overlay.m */; };
 		5A490DD7189D69CE001168B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A490DD6189D69CE001168B7 /* Foundation.framework */; };
 		5A490DD9189D69CE001168B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A490DD8189D69CE001168B7 /* CoreGraphics.framework */; };
 		5A490DDB189D69CE001168B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A490DDA189D69CE001168B7 /* UIKit.framework */; };
@@ -39,6 +41,9 @@
 /* Begin PBXFileReference section */
 		5A3A61C7189F9C93005D1303 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		5A3A61C8189F9C93005D1303 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		5A3A61CB189FA404005D1303 /* pin123.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin123.png; sourceTree = "<group>"; };
+		5A3A61CD189FAF8F005D1303 /* Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Overlay.h; path = Model/Overlay.h; sourceTree = "<group>"; };
+		5A3A61CE189FAF8F005D1303 /* Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Overlay.m; path = Model/Overlay.m; sourceTree = "<group>"; };
 		5A490DD3189D69CE001168B7 /* MapOverlayCreator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapOverlayCreator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A490DD6189D69CE001168B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5A490DD8189D69CE001168B7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				5A490DEE189D69CE001168B7 /* Images.xcassets */,
+				5A3A61CB189FA404005D1303 /* pin123.png */,
 				5A490DDE189D69CE001168B7 /* MapOverlayCreator-Info.plist */,
 				5A490DDF189D69CE001168B7 /* InfoPlist.strings */,
 				5A490DE5189D69CE001168B7 /* MapOverlayCreatorAppDelegate.h */,
@@ -166,6 +172,8 @@
 		5A6FCE23189E60B30012FA0D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5A3A61CD189FAF8F005D1303 /* Overlay.h */,
+				5A3A61CE189FAF8F005D1303 /* Overlay.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 				5A490DEF189D69CE001168B7 /* Images.xcassets in Resources */,
 				5A490DE1189D69CE001168B7 /* InfoPlist.strings in Resources */,
 				5A3A61CA189F9C93005D1303 /* README.md in Resources */,
+				5A3A61CC189FA404005D1303 /* pin123.png in Resources */,
 				5A3A61C9189F9C93005D1303 /* LICENSE in Resources */,
 				5A490DEA189D69CE001168B7 /* Main.storyboard in Resources */,
 			);
@@ -279,6 +288,7 @@
 			files = (
 				5A490DE3189D69CE001168B7 /* main.m in Sources */,
 				5A490DE7189D69CE001168B7 /* MapOverlayCreatorAppDelegate.m in Sources */,
+				5A3A61CF189FAF8F005D1303 /* Overlay.m in Sources */,
 				5A490DED189D69CE001168B7 /* MapOverlayCreatorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -47,6 +47,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="g7b-oQ-it5"/>
+                                    <barButtonItem systemItem="undo" id="ewZ-VJ-5aX">
+                                        <connections>
+                                            <action selector="deleteLastAnnotation:" destination="vXZ-lx-hvc" id="bJf-qb-F4Z"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AHc-PO-vI2">

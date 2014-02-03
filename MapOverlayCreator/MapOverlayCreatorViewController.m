@@ -128,10 +128,51 @@
     [self.mapView addOverlay:poly];
 }
 
+- (IBAction)deleteLastAnnotation:(UIBarButtonItem *)sender
+{
+    id obj = [self.polyPoints lastObject];
+    
+    for (id annotation in self.mapView.annotations)
+    {
+        if (obj == annotation)
+        {
+            [self.mapView removeAnnotation:annotation];
+            
+            break;
+        }
+    }
+    
+    [self.polyPoints removeLastObject];
+}
+
+
 - (IBAction)delteOverlays:(UIBarButtonItem *)sender
 {
     [self.mapView removeOverlays:self.mapView.overlays];
 }
+
+
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    static NSString *annotationViewReuseIdentifier = @"annotationViewReuseIdentifier";
+    
+    MKAnnotationView *annotationView = (MKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationViewReuseIdentifier];
+    
+    if (annotationView == nil)
+    {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewReuseIdentifier];
+    }
+#warning need better image for annotation
+    annotationView.image = [UIImage imageNamed:@"pin123"];
+    annotationView.centerOffset = CGPointMake(0, -16);
+    annotationView.annotation = annotation;
+    
+    return annotationView;
+}
+
+
 
 //################### Lazy instantiation ###################
 
