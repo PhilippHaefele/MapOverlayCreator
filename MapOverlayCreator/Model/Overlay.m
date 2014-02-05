@@ -31,28 +31,29 @@
 
 - (MKPolygon *)polyForOverlay
 {
-    NSUInteger counter = 0;
-    
     // Get the number of items (MKPointAnnotations) in the polyPoints array
     NSUInteger numOfPoints = [self.pointsArray count];
     
     // Define an overlay th
     CLLocationCoordinate2D  points[numOfPoints];
+    //MKMapPoint  points[numOfPoints];
     
-    for (id annotation in self.pointsArray)
+    for (int i = 0; i < [self.pointsArray count]; i++)
     {
+        id annotation = [self.pointsArray objectAtIndex:i];
+        
         if ([annotation isKindOfClass:[MKPointAnnotation class]])
         {
             MKPointAnnotation *point = (MKPointAnnotation *)annotation;
             
-            points[counter] = point.coordinate;
-            
-            counter++;
+            points[i] = point.coordinate;
         }
     }
     
+    // Create polygon
     MKPolygon* poly = [MKPolygon polygonWithCoordinates:points count:numOfPoints];
     
+    // Set title of polygon
     poly.title = self.name;
     
     return poly;

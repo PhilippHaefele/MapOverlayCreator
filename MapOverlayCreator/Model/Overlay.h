@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-@interface Overlay : NSObject
+@interface Overlay : NSObject <MKOverlay>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) UIColor *color;
@@ -17,6 +17,6 @@
 
 - (MKPolygon *)polyForOverlay;
 
-- 
+
 
 @end
