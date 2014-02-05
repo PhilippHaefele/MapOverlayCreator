@@ -7,11 +7,14 @@
 //
 
 #import "MapOverlayCreatorViewController.h"
+#import "TableOverlayViewController.h"
 
 @interface MapOverlayCreatorViewController ()
 
 // Need this property because the annoataion array in mapView is unsorted
 @property (nonatomic, strong) NSMutableArray *polyPoints;
+
+@property (nonatomic, strong) NSMutableArray *overlays;
 
 @end
 
@@ -28,39 +31,49 @@
     // Show userlocation
     //self.mapView.showsUserLocation = YES;
     
-#warning change this to something better or let the user save an own location
+#warning change this to something better or let the user save an own start location
     // create and set start Locarion
     CLLocationCoordinate2D startCoordinate = CLLocationCoordinate2DMake(47.693888, 10.037259);
     
     self.mapView.region = MKCoordinateRegionMakeWithDistance(startCoordinate, 100, 100);
     
     // Create a gesture recognizer for long presses
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(createAnnotation:)];
     // Set minimum press time to half a second
     longPress.minimumPressDuration = 0.3;
     // Add gesture recognizer to mapView
     [self.mapView addGestureRecognizer:longPress];
 }
 
-// Method that creates the OverlayView
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+- (void)updateMap
 {
-    if ([overlay isKindOfClass:[MKPolygon class]])
+
+    // Remove all current overlays from mapView
+    [self.mapView removeOverlays:self.mapView.overlays];
+    
+    // Add all overlays from overlays array to mapView
+    for (id tmp in self.overlays)
     {
-        MKPolygonView *polyView = [[MKPolygonView alloc] initWithPolygon:(MKPolygon *)overlay];
-        
-        polyView.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
-        polyView.strokeColor = [UIColor blueColor];
-        polyView.lineWidth = 3;
-        
-        return polyView;
+        if ([tmp isKindOfClass:[Overlay class]])
+        {
+            Overlay *tmpOverlay = (Overlay *)tmp;
+            
+            MKPolygon *tmpPoly = [tmpOverlay polyForOverlay];
+            
+            [self.mapView addOverlay: tmpPoly];
+        }
     }
-    return nil;
+    
+    // Remove all current annotations from mapView
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    // Add all annotations from annotaions array to mapView
+    [self.mapView addAnnotations:[self.polyPoints copy]];
+    
 }
 
-
 // Gesture recognizers method for the long press on the mapView
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
+- (void)createAnnotation:(UIGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
@@ -78,77 +91,94 @@
         // Add the annotation to the polyPoints array
         [self.polyPoints addObject:point];
         
-        // Add the annotation to the map
-        [self.mapView addAnnotation:point];
+        // Update mapView
+        [self updateMap];
+    }
+}
+
+//################# Create overlay handler #########################
+#define ASK_NAME 1
+
+// Function to create an overlay out of all current annotations in polyPoints (= mapView)
+- (IBAction)createOverlay:(UIBarButtonItem *)sender
+{
+    if ([self.polyPoints count] > 0)
+    {
+        UIAlertView *message = [[UIAlertView alloc]initWithTitle:@"Add overlay"
+                                                         message:@"Please enter a name for the Overlay"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles:@"Add overlay", nil];
+        
+        message.tag = ASK_NAME;
+        
+        [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        
+        [message show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == ASK_NAME)
+    {
+        if (![alertView cancelButtonIndex] == buttonIndex)
+        {
+            // Create overlay out of annotations in polyPoints
+            Overlay *tmpOverlay = [[Overlay alloc]initWithArrayOfAnnotations:self.polyPoints];
+            
+            NSString *name = [[alertView textFieldAtIndex:0] text];
+            
+            if (![name isEqualToString:@""])
+            {
+                tmpOverlay.name = name;
+            }
+            else
+            {
+                tmpOverlay.name = @"Noname";
+            }
+            
+            tmpOverlay.color = [UIColor blueColor];
+            
+            // Add new overlay to overlays array
+            [self.overlays addObject:tmpOverlay];
+            
+            // Remove all annotaions
+            [self deleteAnnotations:nil];
+            
+            // Update mapView
+            [self updateMap];
+            
+        }
     }
 }
 
 // Method to delete all annotations from the mapView
 - (IBAction)deleteAnnotations:(UIBarButtonItem *)sender
 {
-    for (id annotation in self.mapView.annotations)
-    {
-        if ([annotation isKindOfClass:[MKPointAnnotation class]])
-        {
-            [self.mapView removeAnnotation:annotation];
-        }
-    }
-}
-
-// Function to create an overlay out of all current annotations in polyPoints (= mapView)
-- (IBAction)createOverlay:(UIBarButtonItem *)sender
-{
-    NSUInteger counter = 0;
+    // Delete all annotations from annotation array
+    self.polyPoints = nil;
     
-    // Get the number of items (MKPointAnnotations) in the polyPoints array
-    NSUInteger numOfPoints = [self.polyPoints count];
-    
-    // Define an overlay th
-    CLLocationCoordinate2D  points[numOfPoints];
-    
-    for (id annotation in self.polyPoints)
-    {
-        if ([annotation isKindOfClass:[MKPointAnnotation class]])
-        {
-            MKPointAnnotation *point = (MKPointAnnotation *)annotation;
-            
-            points[counter] = point.coordinate;
-            
-            counter++;
-        }
-    }
-    
-    MKPolygon* poly = [MKPolygon polygonWithCoordinates:points count:numOfPoints];
-    
-    poly.title = @"Poly 1";
-    
-    
-    [self deleteAnnotations:nil];
-    
-    [self.mapView addOverlay:poly];
+    // Update mapView
+    [self updateMap];
 }
 
 - (IBAction)deleteLastAnnotation:(UIBarButtonItem *)sender
 {
-    id obj = [self.polyPoints lastObject];
-    
-    for (id annotation in self.mapView.annotations)
-    {
-        if (obj == annotation)
-        {
-            [self.mapView removeAnnotation:annotation];
-            
-            break;
-        }
-    }
-    
+    // Remove last annotation from annotation array
     [self.polyPoints removeLastObject];
+    
+    // Update mapView
+    [self updateMap];
 }
-
 
 - (IBAction)delteOverlays:(UIBarButtonItem *)sender
 {
-    [self.mapView removeOverlays:self.mapView.overlays];
+    // Remove all overlays from overlays array
+    self.overlays = nil;
+    
+    // Update mapView
+    [self updateMap];
 }
 
 
@@ -172,7 +202,38 @@
     return annotationView;
 }
 
+// Method that creates the OverlayView
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolygon class]])
+    {
+        MKPolygonView *polyView = [[MKPolygonView alloc] initWithPolygon:(MKPolygon *)overlay];
+        
+        polyView.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+        polyView.strokeColor = [UIColor blueColor];
+        polyView.lineWidth = 3;
+        
+        return polyView;
+    }
+    return nil;
+}
 
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"OverlayTableSegue"])
+    {
+        // Get TableOverlayViewController to set the overlay property in it
+        TableOverlayViewController *tablevc = (TableOverlayViewController *)segue.destinationViewController;
+        
+        tablevc.overlays = self.overlays;
+    }
+}
 
 //################### Lazy instantiation ###################
 
@@ -184,6 +245,16 @@
     }
     
     return _polyPoints;
+}
+
+- (NSMutableArray *)overlays
+{
+    if (!_overlays)
+    {
+        _overlays = [[NSMutableArray alloc]init];
+    }
+    
+    return _overlays;
 }
 
 @end

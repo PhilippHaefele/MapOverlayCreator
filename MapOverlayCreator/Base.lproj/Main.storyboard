@@ -46,7 +46,7 @@
                                             <action selector="createOverlay:" destination="vXZ-lx-hvc" id="TrS-gZ-NKA"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="g7b-oQ-it5"/>
+                                    <barButtonItem systemItem="flexibleSpace" id="g7b-oQ-it5"/>
                                     <barButtonItem systemItem="undo" id="ewZ-VJ-5aX">
                                         <connections>
                                             <action selector="deleteLastAnnotation:" destination="vXZ-lx-hvc" id="bJf-qb-F4Z"/>
@@ -68,7 +68,7 @@
                     <navigationItem key="navigationItem" title="Overlay Creator" id="ibc-X1-qZ8">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="b20-OL-ZbE">
                             <connections>
-                                <segue destination="iBD-mN-8wN" kind="push" id="Onn-jE-MSc"/>
+                                <segue destination="iBD-mN-8wN" kind="push" identifier="OverlayTableSegue" id="Onn-jE-MSc"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="6oO-yE-Obe">
@@ -85,91 +85,54 @@
             </objects>
             <point key="canvasLocation" x="460" y="168"/>
         </scene>
-        <!--Table View Controller - Overlays-->
+        <!--Table Overlay View Controller - Overlays-->
         <scene sceneID="y3k-fZ-nDy">
             <objects>
-                <tableViewController id="iBD-mN-8wN" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dhr-Sz-nRd">
+                <tableViewController id="iBD-mN-8wN" customClass="TableOverlayViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dhr-Sz-nRd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="Hb0-U3-uLh">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="zCT-Pr-k9a" style="IBUITableViewCellStyleDefault" id="Xdb-1u-Rch">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xdb-1u-Rch" id="Yvu-k4-dnK">
-                                            <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OverlayCell" textLabel="zCT-Pr-k9a" style="IBUITableViewCellStyleDefault" id="Xdb-1u-Rch">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xdb-1u-Rch" id="Yvu-k4-dnK">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overlay 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zCT-Pr-k9a">
+                                            <rect key="frame" x="15" y="0.0" width="238" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overlay 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zCT-Pr-k9a">
-                                                    <rect key="frame" x="15" y="0.0" width="238" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="2uw-Cf-TCv" kind="push" trigger="accessoryAction" id="N2q-Ky-Rgw"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="F9N-1e-e1S" style="IBUITableViewCellStyleDefault" id="oCM-B8-gMZ">
-                                        <rect key="frame" x="0.0" y="108" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCM-B8-gMZ" id="Tn8-g1-yzT">
-                                            <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overlay 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F9N-1e-e1S">
-                                                    <rect key="frame" x="15" y="0.0" width="238" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0Ky-qA-n8M" style="IBUITableViewCellStyleDefault" id="9ts-zl-n3b">
-                                        <rect key="frame" x="0.0" y="152" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9ts-zl-n3b" id="kOF-1r-lVe">
-                                            <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overlay 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Ky-qA-n8M">
-                                                    <rect key="frame" x="15" y="0.0" width="238" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="2uw-Cf-TCv" kind="push" identifier="OverlayDetailSegue" trigger="accessoryAction" id="N2q-Ky-Rgw"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="iBD-mN-8wN" id="UAp-Ho-u6q"/>
                             <outlet property="delegate" destination="iBD-mN-8wN" id="HY1-VG-hOt"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Overlays" id="GYt-z7-5iD">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="v5l-bz-cX2"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="v5l-bz-cX2"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoJ-yi-Jzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="903" y="168"/>
         </scene>
-        <!--View Controller - Overlay details-->
+        <!--Overlay Detail View Controller - Overlay details-->
         <scene sceneID="lVR-ti-Sgu">
             <objects>
-                <viewController id="2uw-Cf-TCv" sceneMemberID="viewController">
+                <viewController id="2uw-Cf-TCv" customClass="OverlayDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="unw-0W-lJg"/>
                         <viewControllerLayoutGuide type="bottom" id="9WO-M9-3Ym"/>
