@@ -194,9 +194,9 @@
     {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationViewReuseIdentifier];
     }
-#warning need better image for annotation
-    annotationView.image = [UIImage imageNamed:@"pin123"];
-    annotationView.centerOffset = CGPointMake(0, -16);
+    
+    annotationView.image = [UIImage imageNamed:@"pin-red"];
+    annotationView.centerOffset = CGPointMake(0, -20);
     annotationView.annotation = annotation;
     
     return annotationView;
