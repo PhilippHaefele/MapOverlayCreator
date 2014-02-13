@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rzZ-gE-0p3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="rzZ-gE-0p3">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Item-->
         <scene sceneID="BhA-tF-zGt">
             <objects>
                 <navigationController definesPresentationContext="YES" id="rzZ-gE-0p3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Ghh-5F-mVz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wIZ-pf-aGM">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -18,21 +19,21 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6KZ-Wx-ee2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28" y="168"/>
+            <point key="canvasLocation" x="500" y="168"/>
         </scene>
         <!--Map Overlay Creator View Controller - Overlay Creator-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="MapOverlayCreatorViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aPp-E2-Lky"/>
-                        <viewControllerLayoutGuide type="bottom" id="5OS-9T-Yo3"/>
+                        <viewControllerLayoutGuide type="top" id="HFx-jw-PVM"/>
+                        <viewControllerLayoutGuide type="bottom" id="jRd-Ec-La9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tak-JF-Y8g">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tak-JF-Y8g">
                                 <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -46,15 +47,20 @@
                                             <action selector="createOverlay:" destination="vXZ-lx-hvc" id="TrS-gZ-NKA"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="g7b-oQ-it5"/>
                                     <barButtonItem systemItem="undo" id="ewZ-VJ-5aX">
                                         <connections>
                                             <action selector="deleteLastAnnotation:" destination="vXZ-lx-hvc" id="bJf-qb-F4Z"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ytJ-yU-EN6"/>
+                                    <barButtonItem systemItem="trash" id="4mH-Kb-Fgl">
+                                        <connections>
+                                            <action selector="delteOverlays:" destination="vXZ-lx-hvc" id="FP0-4I-Oxj"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AHc-PO-vI2">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AHc-PO-vI2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
@@ -63,6 +69,15 @@
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AHc-PO-vI2" firstAttribute="leading" secondItem="Tak-JF-Y8g" secondAttribute="leading" id="5rr-Yd-WaH"/>
+                            <constraint firstItem="AHc-PO-vI2" firstAttribute="bottom" secondItem="Tak-JF-Y8g" secondAttribute="top" id="Dfh-2R-f82"/>
+                            <constraint firstAttribute="centerX" secondItem="Tak-JF-Y8g" secondAttribute="centerX" id="DgY-NU-leZ"/>
+                            <constraint firstItem="AHc-PO-vI2" firstAttribute="trailing" secondItem="Tak-JF-Y8g" secondAttribute="trailing" id="bHa-yQ-e3D"/>
+                            <constraint firstItem="Tak-JF-Y8g" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="bhN-lL-75m"/>
+                            <constraint firstItem="AHc-PO-vI2" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="gsF-aG-wOv"/>
+                            <constraint firstAttribute="bottom" secondItem="Tak-JF-Y8g" secondAttribute="bottom" id="qYh-P0-YRR"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Overlay Creator" id="ibc-X1-qZ8">
@@ -73,7 +88,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="6oO-yE-Obe">
                             <connections>
-                                <action selector="delteOverlays:" destination="vXZ-lx-hvc" id="Pwy-UW-VWZ"/>
+                                <action selector="overlaySend:" destination="vXZ-lx-hvc" id="f5a-dk-dp7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -83,26 +98,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="460" y="168"/>
+            <point key="canvasLocation" x="991" y="168"/>
         </scene>
         <!--Table Overlay View Controller - Overlays-->
         <scene sceneID="y3k-fZ-nDy">
             <objects>
                 <tableViewController id="iBD-mN-8wN" customClass="TableOverlayViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dhr-Sz-nRd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OverlayCell" textLabel="zCT-Pr-k9a" style="IBUITableViewCellStyleDefault" id="Xdb-1u-Rch">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xdb-1u-Rch" id="Yvu-k4-dnK">
-                                    <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Overlay 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zCT-Pr-k9a">
-                                            <rect key="frame" x="15" y="0.0" width="238" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="267" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -111,7 +126,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="2uw-Cf-TCv" kind="push" identifier="OverlayDetailSegue" trigger="accessoryAction" id="N2q-Ky-Rgw"/>
+                                    <segue destination="2uw-Cf-TCv" kind="push" identifier="OverlayDetailSegue" trigger="accessoryAction" id="nS0-9d-HeR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -121,32 +136,32 @@
                             <outlet property="delegate" destination="iBD-mN-8wN" id="HY1-VG-hOt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Overlays" id="GYt-z7-5iD">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="v5l-bz-cX2"/>
-                    </navigationItem>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Overlays" id="GYt-z7-5iD"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoJ-yi-Jzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="903" y="168"/>
+            <point key="canvasLocation" x="1429" y="168"/>
         </scene>
         <!--Overlay Detail View Controller - Overlay details-->
         <scene sceneID="lVR-ti-Sgu">
             <objects>
                 <viewController id="2uw-Cf-TCv" customClass="OverlayDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="unw-0W-lJg"/>
-                        <viewControllerLayoutGuide type="bottom" id="9WO-M9-3Ym"/>
+                        <viewControllerLayoutGuide type="top" id="ljX-hm-tAg"/>
+                        <viewControllerLayoutGuide type="bottom" id="dn1-oK-cV5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eT7-l0-uWH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Overlay details" id="8Ds-9n-fPh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUz-gf-So2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1321" y="168"/>
+            <point key="canvasLocation" x="1867" y="168"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
