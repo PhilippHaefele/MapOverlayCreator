@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "Overlay.h"
 
-@interface MapOverlayCreatorViewController : UIViewController
+@interface MapOverlayCreatorViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 

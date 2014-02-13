@@ -181,6 +181,42 @@
     [self updateMap];
 }
 
+- (IBAction)overlaySend:(UIBarButtonItem *)sender
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"overlays.plist"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path])
+    {
+        path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"overlays.plist"] ];
+    }
+    
+    NSMutableDictionary *data;
+    
+    if ([fileManager fileExistsAtPath: path])
+    {
+        data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    }
+    else
+    {
+        // If the file doesn’t exist, create an empty dictionary
+        data = [[NSMutableDictionary alloc] init];
+    }
+    
+    //To insert the data into the plist
+    int value = 5;
+    [data setObject:[NSNumber numberWithInt:value] forKey:@"value"];
+    [data writeToFile: path atomically:YES];
+    
+    //To reterive the data from the plist
+    NSMutableDictionary *savedStock = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    int value1;
+    value1 = [[savedStock objectForKey:@"value"] intValue];
+    NSLog(@"%i",value1);
+}
 
 #pragma mark MKMapViewDelegate
 
