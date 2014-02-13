@@ -27,6 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Add edit button
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Allow multiple selection for deleting
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
 }
 
 #pragma mark - Table view data source
@@ -63,6 +69,29 @@
     
     return cell;
 }
+
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     return YES;
+ }
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     if (editingStyle == UITableViewCellEditingStyleDelete)
+     {
+         // Delete the row from the data source
+         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+         
+         [self.overlays removeObjectAtIndex:indexPath.row];
+     }
+     
+     [self.tableView reloadData];
+ }
 
 #pragma mark - Navigation
 
