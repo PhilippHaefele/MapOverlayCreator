@@ -1,7 +1,7 @@
 MapOverlayCreator
 =================
 
-Litte app to create Overlays for iOS MKMapView
+Small app to create overlays for iOS MKMapView.
 
 ## License
 
